@@ -1,0 +1,268 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  background:
+    radial-gradient(ellipse at top, #172650 0%, transparent 60%),
+    #080b18;
+  color: white;
+  font-family: 'Nunito', sans-serif;
+}
+
+.container {
+  max-width: 850px;
+  margin: auto;
+  padding: 25px 20px;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 21px;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+
+.logo span {
+  color: #00eaff;
+}
+
+.badge {
+  font-size: 10px;
+  padding: 7px 12px;
+  border: 1px solid #00eaff;
+  border-radius: 30px;
+  color: #00eaff;
+}
+
+main {
+  margin-top: 85px;
+}
+
+.hero {
+  text-align: center;
+  margin-bottom: 35px;
+}
+
+.icon {
+  font-size: 45px;
+  margin-bottom: 15px;
+  filter: drop-shadow(0 0 15px #00eaff);
+}
+
+.hero h1 {
+  font-size: clamp(30px, 7vw, 48px);
+  font-weight: 900;
+}
+
+.hero h1 span {
+  color: #00eaff;
+}
+
+.hero p {
+  color: #9ba9c5;
+  margin-top: 10px;
+}
+
+.card {
+  padding: 28px;
+  border-radius: 20px;
+  background: linear-gradient(145deg, #151e38, #0c1226);
+  border: 1px solid #263b65;
+  box-shadow: 0 15px 50px #0008;
+}
+
+.card label {
+  display: block;
+  font-size: 12px;
+  font-weight: 800;
+  margin-bottom: 12px;
+  color: #aab9d8;
+}
+
+.input-box {
+  display: flex;
+  gap: 8px;
+}
+
+input {
+  width: 100%;
+  min-width: 0;
+  padding: 16px;
+  background: #080e20;
+  border: 1px solid #293d65;
+  border-radius: 10px;
+  color: white;
+  outline: none;
+  font-family: inherit;
+}
+
+input:focus {
+  border-color: #00eaff;
+}
+
+button, .result a {
+  cursor: pointer;
+  border: none;
+  font-family: inherit;
+  font-weight: 900;
+}
+
+#pasteBtn {
+  padding: 0 17px;
+  background: #24375c;
+  color: #00eaff;
+  border-radius: 10px;
+}
+
+.resolve-btn {
+  width: 100%;
+  padding: 16px;
+  margin-top: 18px;
+  background: linear-gradient(90deg, #00c8ff, #655cff);
+  color: white;
+  border-radius: 10px;
+  font-size: 15px;
+  box-shadow: 0 5px 25px #00bfff35;
+}
+
+.resolve-btn:disabled {
+  opacity: .5;
+  cursor: wait;
+}
+
+.loading {
+  text-align: center;
+  padding: 25px;
+  color: #00eaff;
+}
+
+.spinner {
+  width: 35px;
+  height: 35px;
+  margin: auto auto 15px;
+  border: 3px solid #253653;
+  border-top-color: #00eaff;
+  border-radius: 50%;
+  animation: spin .8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.hidden {
+  display: none !important;
+}
+
+.result {
+  margin-top: 22px;
+  padding: 20px;
+  border-radius: 12px;
+  background: #0a1d29;
+  border: 1px solid #00d99b;
+}
+
+.result h3 {
+  color: #00e6a0;
+  font-size: 13px;
+  margin-bottom: 12px;
+}
+
+.destination {
+  padding: 12px;
+  background: #080e20;
+  border-radius: 8px;
+  overflow-wrap: anywhere;
+  font-size: 13px;
+  color: #b9d8ff;
+}
+
+.result button,
+.result a {
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding: 13px;
+  margin-top: 12px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 13px;
+}
+
+.result button {
+  background: #24375c;
+  color: white;
+}
+
+.result a {
+  background: #00d99b;
+  color: #061c18;
+}
+
+.error {
+  margin-top: 18px;
+  padding: 13px;
+  background: #401b2a;
+  color: #ff9eae;
+  border-radius: 9px;
+  font-size: 13px;
+}
+
+.features {
+  display: flex;
+  justify-content: center;
+  gap: 35px;
+  margin: 35px 0;
+  color: #00eaff;
+  font-size: 20px;
+}
+
+.features div {
+  text-align: center;
+}
+
+.features span {
+  display: block;
+  font-size: 11px;
+  color: #9ba9c5;
+  margin-top: 7px;
+}
+
+footer {
+  text-align: center;
+  margin-top: 70px;
+  color: #62708d;
+  font-size: 12px;
+}
+
+footer p {
+  margin-top: 8px;
+  color: #00eaff;
+  letter-spacing: 3px;
+  font-size: 10px;
+}
+
+@media(max-width: 500px) {
+  main {
+    margin-top: 65px;
+  }
+
+  .card {
+    padding: 19px;
+  }
+
+  .features {
+    gap: 17px;
+  }
+}

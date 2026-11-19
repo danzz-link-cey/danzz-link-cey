@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#080b18">
+  <title>DANZZ LINK CEY</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <div class="logo">DANZZ <span>LINK CEY</span></div>
+      <div class="badge">LINK RESOLVER</div>
+    </header>
+
+    <main>
+      <div class="hero">
+        <div class="icon">⚡</div>
+        <h1>LINK <span>RESOLVER</span></h1>
+        <p>Paste your link. Find your destination.</p>
+      </div>
+
+      <section class="card">
+        <label for="linkInput">MASUKKAN LINK KAMU</label>
+
+        <div class="input-box">
+          <input
+            type="url"
+            id="linkInput"
+            placeholder="https://example.com/..."
+            autocomplete="url"
+          >
+          <button id="pasteBtn">PASTE</button>
+        </div>
+
+        <button id="resolveBtn" class="resolve-btn">
+          ⚡ PROSES LINK
+        </button>
+
+        <div id="loading" class="loading hidden">
+          <div class="spinner"></div>
+          <p>Sedang memeriksa redirect...</p>
+        </div>
+
+        <div id="result" class="result hidden">
+          <h3>✓ LINK TUJUAN DITEMUKAN</h3>
+          <div id="destination" class="destination"></div>
+
+          <button id="copyBtn">SALIN LINK</button>
+          <a id="openBtn" target="_blank" rel="noopener noreferrer">
+            BUKA LINK UTAMA ↗
+          </a>
+        </div>
+
+        <div id="error" class="error hidden"></div>
+      </section>
+
+      <div class="features">
+        <div>⚡<span>Fast Processing</span></div>
+        <div>🔗<span>Multi Link</span></div>
+        <div>🛡️<span>Safe Checking</span></div>
+      </div>
+    </main>
+
+    <footer>
+      © 2026 DANZZ LINK CEY
+      <p>PASTE • PROCESS • DIRECT</p>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
