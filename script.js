@@ -1,5 +1,7 @@
 // DANZZ LINK CEY
 
+const API_URL = "https://danzz-link-cey-production.up.railway.app";
+
 const input = document.getElementById("linkInput");
 const pasteBtn = document.getElementById("pasteBtn");
 const resolveBtn = document.getElementById("resolveBtn");
@@ -14,116 +16,98 @@ const openBtn = document.getElementById("openBtn");
 
 let finalLink = "";
 
-/**
+function showError(message) {
+    error.textContent = message;
+    error.classList.remove("hidden");
+    result.classList.add("hidden");
+}
 
-* Menampilkan pesan error.
-* @param {string} message
-  */
-  function showError(message) {
-  error.textContent = message;
-  error.classList.remove("hidden");
-  result.classList.add("hidden");
-  }
+function validURL(value) {
+    try {
+        const url = new URL(value);
 
-// Tombol paste
+        return (
+            (url.protocol === "https:" ||
+             url.protocol === "http:") &&
+            !url.username &&
+            !url.password
+        );
+    } catch {
+        return false;
+    }
+}
+
+// Paste
 pasteBtn.addEventListener("click", async () => {
-try {
-input.value = await navigator.clipboard.readText();
-} catch {
-showError("Tidak bisa membaca clipboard. Silakan paste manual.");
-}
+    try {
+        input.value = await navigator.clipboard.readText();
+    } catch {
+        showError("Silakan paste link secara manual.");
+    }
 });
 
-/**
-
-* Memeriksa URL.
-
-* @param {string} value
-
-* @returns {boolean}
-  */
-  function validURL(value) {
-  try {
-  const url = new URL(value);
-  
-  return (
-  url.protocol === "https:" ||
-  url.protocol === "http:"
-  );
-  } catch {
-  return false;
-  }
-  }
-
-// Tombol proses
+// Proses URL
 resolveBtn.addEventListener("click", async () => {
-const link = input.value.trim();
+    const link = input.value.trim();
 
-result.classList.add("hidden");
-error.classList.add("hidden");
+    result.classList.add("hidden");
+    error.classList.add("hidden");
 
-if (!link || !validURL(link)) {
-showError("Masukkan link HTTP atau HTTPS yang valid.");
-return;
-}
+    if (!link || !validURL(link)) {
+        showError("Masukkan URL HTTP atau HTTPS yang valid.");
+        return;
+    }
 
-loading.classList.remove("hidden");
-resolveBtn.disabled = true;
+    loading.classList.remove("hidden");
+    resolveBtn.disabled = true;
 
-try {
-const response = await fetch("/api/resolve", {
-method: "POST",
-headers: {
-"Content-Type": "application/json"
-},
-body: JSON.stringify({
-url: link
-})
+    try {
+        const response = await fetch(
+            `${API_URL}/api/resolve`,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    url: link
+                })
+            }
+        );
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.error || "Gagal memproses URL.");
+        }
+
+        if (!validURL(data.destination)) {
+            throw new Error("URL tujuan tidak valid.");
+        }
+
+        finalLink = data.destination;
+
+        destination.textContent = finalLink;
+        openBtn.href = finalLink;
+
+        result.classList.remove("hidden");
+
+    } catch (err) {
+        showError(err.message || "Server tidak dapat dihubungi.");
+    } finally {
+        loading.classList.add("hidden");
+        resolveBtn.disabled = false;
+    }
 });
 
-const data = await response.json();
-
-if (!response.ok) {
-  throw new Error(
-    data.error || "Link tidak dapat diproses."
-  );
-}
-
-if (
-  typeof data.destination !== "string" ||
-  !validURL(data.destination)
-) {
-  throw new Error("Alamat tujuan tidak valid.");
-}
-
-finalLink = data.destination;
-
-destination.textContent = finalLink;
-openBtn.href = finalLink;
-
-result.classList.remove("hidden");
-
-} catch (err) {
-const message = err instanceof Error
-? err.message
-: "Terjadi kesalahan.";
-
-showError(message);
-
-} finally {
-loading.classList.add("hidden");
-resolveBtn.disabled = false;
-}
-});
-
-// Tombol salin
+// Salin URL
 copyBtn.addEventListener("click", async () => {
-if (!finalLink) return;
+    if (!finalLink) return;
 
-try {
-await navigator.clipboard.writeText(finalLink);
-copyBtn.textContent = "✓ BERHASIL DISALIN";
-} catch {
-showError("Gagal menyalin link.");
-}
+    try {
+        await navigator.clipboard.writeText(finalLink);
+        copyBtn.textContent = "✓ BERHASIL DISALIN";
+    } catch {
+        showError("Gagal menyalin URL.");
+    }
 });
